@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bono zona</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <!-- Favicon -->
+    <link href="../img/consitencias-ico.ico" rel="icon" />
+    <link href="../../../back/node_modules/@flaticon/flaticon-uicons/css/solid/rounded.css" rel="stylesheet">
+    <link href="../../../back/node_modules/@flaticon/flaticon-uicons/css/solid/all.css" rel="stylesheet">
+    <link href="../../../back/node_modules/@flaticon/flaticon-uicons/css/solid/straight.css" rel="stylesheet">
+    <link href="../../../back/node_modules/@flaticon/flaticon-uicons/css/all/all.straight.css" rel="stylesheet">
+    <link href="../../../back/node_modules/@flaticon/flaticon-uicons/css/all/all.rounded.css" rel="stylesheet">
+    <link href="../../../back/node_modules/@flaticon/flaticon-uicons/css/all/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/regular/rounded.css">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/regular/straight.css">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/regular/all.css">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/brands/all.css">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/bold/all.css">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/bold/rounded.css">
+    <link rel="stylesheet" href="../../../back/node_modules/@flaticon/flaticon-uicons/css/bold/straight.css">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link
+      href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet" />
+
+    <!-- sweetalert2 -->
+    <link
+      href="../css/node_modules/sweetalert2/dist/sweetalert2.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../css/node_modules/sweetalert2/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../back/node_modules/datatables.net-dt/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="../../back/node_modules/datatables.net-dt/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="../../back/node_modules/datatables.net-dt/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="../../back/node_modules/select2/dist/css/select2.min.css">
+  </head>
+
+  <body>
+    
+    <div class="container-fluid position-relative d-flex p-0 padre">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+
+      <!-- Sidebar Start -->
+      <div class="sidebar pe-2 pb-3">
+        <nav class="navbar bg-secondary navbar-dark">
+          <a
+            href="index.html"
+            style="display: flex; justify-content: center; width: 100%; height: 90px; "
+          >
+            <img
+              style="width: 60%"
+              class="img-responsive img-fluid"
+              alt="Responsive image"
+              src=".././img/consitencias-fotor-bg-remover-2024053118254.png"
+              alt=""
+            />
+          </a>
+          <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+              <img
+                class="rounded-circle"
+                src="../img/png-transparent-user-computer-icons-user-miscellaneous-cdr-rectangle-thumbnail.png"
+                alt=""
+                style="width: 40px; height: 40px"
+              />
+              <div
+                class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"
+              ></div>
+            </div>
+            <div class="ms-3">
+              <h6 class="mb-0" id="usernav">adm</h6>
+              <span id="perfi">adm</span>
+            </div>
+          </div>
+          <div class="navbar-nav w-100">
+            <!-- <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a> -->
+            <a href="usuarios.html" class="nav-item nav-link"
+              ><i class="fi fi-sr-users-alt me-2"></i>Usuarios</a
+            >
+            <a href="cyd.html" class="nav-item nav-link"
+              ><i class="fi fi-sr-scale me-2"></i>Consistencias</a
+            >
+            <a href="bonozona.html" class="nav-item nav-link active"
+              ><i class="fi fi-sr-category-alt me-2"></i>Bono zona</a
+            >
+            <!-- <a href="productos.html" class="nav-item nav-link"
+              ><i class="fi fi-sr-boxes me-2"></i>Productos</a
+            >
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Registro Ventas</a>
+              <div class="dropdown-menu bg-transparent border-0">
+                <a href="clientes.html" class="dropdown-item">Clientes</a>
+                <a href="nueva_venta.html" class="dropdown-item">Nueva venta</a>
+                <a href="ventas.html" class="dropdown-item">Ventas</a>
+              </div>
+            </div>
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Registro Compras</a>
+              <div class="dropdown-menu bg-transparent border-0">
+                <a href="proveedores.html" class="dropdown-item">Proveedores</a>
+                <a href="nueva_compra.html" class="dropdown-item">Nueva compra</a>
+                <a href="compras.html" class="dropdown-item">Compras</a>
+              </div>
+            </div> -->
+
+
+
+
+
+
+
+
+
+
+            <!-- <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                ><i class="fa fa-laptop me-2"></i>Elements</a
+              >
+              <div class="dropdown-menu bg-transparent border-0">
+                <a href="button.html" class="dropdown-item">Buttons</a>
+                <a href="typography.html" class="dropdown-item">Typography</a>
+                <a href="element.html" class="dropdown-item">Other Elements</a>
+              </div>
+            </div>
+            <a href="widget.html" class="nav-item nav-link"
+              ><i class="fa fa-th me-2"></i>Widgets</a
+            >
+            <a href="form.html" class="nav-item nav-link"
+              ><i class="fa fa-keyboard me-2"></i>Forms</a
+            >
+            <a href="table.html" class="nav-item nav-link"
+              ><i class="fa fa-table me-2"></i>Tables</a
+            > -->
+          </div>
+        </nav>
+      </div>
+      <!-- Sidebar End -->
+
+      <!-- Content Start -->
+      <div class="content position-relative">
+        <!-- Navbar Start -->
+        <nav
+          class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-2"
+        >
+          <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+            <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+          </a>
+          <a href="#" class="sidebar-toggler flex-shrink-0">
+            <i class="fa fa-bars"></i>
+          </a>
+          <div class="navbar-nav align-items-center ms-auto">
+            <!-- <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <i class="fa fa-bell me-lg-2"></i>
+                <span class="d-none d-lg-inline-flex">Notificatin</span>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
+              >
+                <a href="#" class="dropdown-item">
+                  <h6 class="fw-normal mb-0">Profile updated</h6>
+                  <small>15 minutes ago</small>
+                </a>
+                <hr class="dropdown-divider" />
+                <a href="#" class="dropdown-item">
+                  <h6 class="fw-normal mb-0">New user added</h6>
+                  <small>15 minutes ago</small>
+                </a>
+                <hr class="dropdown-divider" />
+                <a href="#" class="dropdown-item">
+                  <h6 class="fw-normal mb-0">Password changed</h6>
+                  <small>15 minutes ago</small>
+                </a>
+                <hr class="dropdown-divider" />
+                <a href="#" class="dropdown-item text-center"
+                  >See all notifications</a
+                >
+              </div>
+            </div> -->
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <img
+                  class="rounded-circle me-lg-2"
+                  src="../img/png-transparent-user-computer-icons-user-miscellaneous-cdr-rectangle-thumbnail.png"
+                  alt=""
+                  style="width: 40px; height: 40px"
+                />
+                <span class="d-none d-lg-inline-flex" id="usernavtop">Eduardo Castro</span>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
+              >
+                <a href="perfil.html" class="dropdown-item">Mi Perfil</a>
+                <!-- <a href="#" class="dropdown-item">Configuraciones</a> -->
+                <a href="#" class="dropdown-item" id="logout-session">Cerrar Sesion</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- Navbar End -->
+
+        <!-- Chart Start -->
+        <div class="container-fluid pt-4 px-4" id="chart">
+          <div class="row g-4 mb-4">
+            <div class="bg-secondary rounded p-4 col-12">
+              <!-- Top div with title and button -->
+              <div class="d-flex align-items-center mb-4">
+                <h6 class="mb-0">    </h6>
+              </div>
+              <!-- Responsive Horizontal Form -->
+              <form id="formbuscar">
+                <div class="row mb-3">
+                  <div class="col-md-3 mb-3">
+                    <label for="inputNombre" class="form-label">Distrito:</label>
+                    <select class="form-select" id="distrito" required>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="inputGestion" class="form-label">Gestion:</label>
+                    <select class="form-select" id="gestion">
+                      <option value="2011">2011</option>
+                      <option value="1998">2011</option>
+                      <option value="1999">2011</option>
+                      <option value="2000">2011</option>
+                      <option value="2001">2011</option>
+                      <option value="2002">2011</option>
+                      <option value="2003">2011</option>
+                      <option value="2004">2011</option>
+                      <option value="2005">2011</option>
+                      <option value="2006">2011</option>
+                      <option value="2007">2011</option>
+                      <option value="2008">2008</option>
+                      <option value="2009">2009</option>
+                      <option value="2010">2010</option>
+                      <option value="2011">2011</option>
+                      <option value="2012">2012</option>
+                      <option value="2013">2013</option>
+                      <option value="2014">2014</option>
+                      <option value="2015">2015</option>
+                      <option value="2016">2016</option>
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="inputApellido" class="form-label">Mes:</label>
+                    <select class="form-select" id="mes">
+                      <option value="1">Enero</option>
+                      <option value="2">Febrero</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Abril</option>
+                      <option value="5">Mayo</option>
+                      <option value="6">Juni</option>
+                      <option value="7">Julio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Septiembre</option>
+                      <option value="10">Octubre</option>
+                      <option value="11">Noviembre</option>
+                      <option value="12">Diciembre</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary col-md-5">Buscar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        <div class="container-fluid pt-4 px-4" id="chart">
+          <div class="row g-4">
+            <div class="bg-secondary text-center rounded p-4">
+              
+              <!-- <form >
+                <div class="row mb-3 gap-3">
+                </div>
+                <div class="mb-3 gap-3 d-flex ">
+                  <div class="col-md-5 mb-3 d-flex align-items-center gap-5">
+                    <label for="inputApellido" class="form-label">SIE:</label>
+                    <input type="text" class="form-control" id="sie" placeholder="Ingrese codigo SIE">
+                  </div>
+                  <div class="col-md-5 mb-3 d-flex ">
+                    <button type="submit" class="btn btn-primary col-md-3">Buscar</button>
+                  </div>
+                </div>
+                <div class="row mb-3 gap-3">
+                  <div class="col-md-8 mb-3 d-flex gap-3">
+                    <label for="inputApellido" class="form-label">U.E. con bono zona:</label>
+                    <input type="text" class="form-control" id="UE" placeholder="">
+                  </div>
+                </div>
+              </form> -->
+              <div class="table-responsive">
+                <table id="myTable" class="display table align-middle table-bordered table-hover mb-0">
+                  <thead>
+                    <tr class="text-white">
+                      <th>DISTRITO</th>
+                      <th>UNIDADA EDUCATIVA</th>
+                    </tr>
+                  </thead>
+                  <tbody id="medida">
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Chart End -->
+
+        <!-- Footer Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="row g-4">
+            <div class="bg-secondary rounded-top p-4">
+              <div class="row">
+                <div class=" text-center d-block">
+                  <!-- &copy; <a class="pe-none">2024</a>, <i class="pe-none">La Holandesa de Queso.</i> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src=".././js/js/bonozona.js"></script>
+    
+    <script> 
+      let searchTimeout; // Variable para almacenar el tiempo de espera
+
+      document.addEventListener('input', e => {
+        if (e.target.matches('#searchBar')) {
+          clearTimeout(searchTimeout); // Limpiar el temporizador si se inicia una nueva entrada
+          
+          // Establecer un temporizador para ejecutar la búsqueda después de 300 ms
+          searchTimeout = setTimeout(() => {
+            const term = e.target.value.toLowerCase(); // Obtener el término de búsqueda y convertirlo a minúsculas
+            
+            // Obtener todas las filas de la tabla
+            const rows = document.querySelectorAll('#medida tr');
+
+            // Iterar sobre cada fila de la tabla
+            rows.forEach(row => {
+              let found = false; // Variable para rastrear si se encuentra una coincidencia
+              
+              // Obtener todas las celdas de la fila
+              const cells = row.querySelectorAll('td');
+
+              // Iterar sobre cada celda de la fila
+              cells.forEach(cell => {
+                // Obtener el texto de la celda y convertirlo a minúsculas
+                const text = cell.textContent.toLowerCase();
+                
+                // Verificar si el texto de la celda incluye el término de búsqueda
+                if (text.includes(term)) {
+                  found = true; // Si se encuentra una coincidencia, establecer found en true
+                }
+              });
+
+              // Mostrar u ocultar la fila dependiendo de si se encontró una coincidencia
+              if (found) {
+                row.style.display = ""; // Mostrar la fila si se encontró una coincidencia
+              } else {
+                row.style.display = "none"; // Ocultar la fila si no se encontró una coincidencia
+              }
+            });
+            console.log(term)
+          }, 300);
+          
+        }
+      });
+    </script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+
+    <!-- sweetalert2 -->
+    <script src="../css/node_modules/sweetalert2/dist/sweetalert2.js"></script>
+    <script src="../css/node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
+    <script src="../css/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="../css/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="../../back/node_modules/datatables.net/js/dataTables.min.js"></script>
+    <script src="../../back/node_modules/select2/dist/js/select2.full.min.js"></script>
+
+
+    <!-- cerrar sesion -->
+    <script src=".././js/js/1.login/cerrar_sesion.js"></script>
+  </body>
+</html>
