@@ -181,60 +181,37 @@ const obtenerToken = async () => {
     const distrito = document.getElementById("distrito").value;
     const gestion = document.getElementById("gestion").value;
     const mes = document.getElementById("mes").value;
-
-
-    // Verificar si el campo del sie está vacío
-    if (!gestion) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
   
-      Toast.fire({
-        icon: "warning",
-        title: 'Por favor, ingrese el número del sie',
-      });
-      return; // Detener la ejecución del código si el carnet está vacío
+    // Validar campos
+    if (!distrito || !gestion || !mes) {
+      showWarningToast('Por favor, complete todos los campos requeridos');
+      return;
     }
-
-    // Verificar si el campo del sie está vacío
-    if (!mes) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
   
-      Toast.fire({
-        icon: "warning",
-        title: 'Por favor, ingrese el número del sie',
-      });
-      return; // Detener la ejecución del código si el carnet está vacío
-    }
-
-    // Verificar si el campo del distrito está vacío
-    if (!distrito) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
+    // Realizar la búsqueda
+    await realizarBusqueda({ distrito, gestion, mes });
+  });
   
-      Toast.fire({
-        icon: "warning",
-        title: 'Por favor, seleccione un distrito',
-      });
-      return; // Detener la ejecución del código si el carnet está vacío
+  document.getElementById("buscarmaestros").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Evitar que se recargue la página al enviar el formulario
+  
+    // Obtener los valores del formulario
+    const distrito = document.getElementById("distrito").value;
+    const gestion = document.getElementById("gestion").value;
+    const mes = document.getElementById("mes").value;
+    const coddis = document.getElementById("coddis").value;
+  
+    // Validar campos
+    if (!distrito || !gestion || !mes || !coddis) {
+      showWarningToast('Por favor, complete todos los campos requeridos');
+      return;
     }
-
-
+  
+    // Realizar la búsqueda
+    await realizarBusqueda({ distrito, gestion, mes, coddis });
+  });
+  
+  const realizarBusqueda = async (params) => {
     try {
       // Mostrar el spinner y ajustar la opacidad
       spinner.classList.add("show");
@@ -243,85 +220,120 @@ const obtenerToken = async () => {
       // Hacer una solicitud HTTP al servidor para obtener el token
       const token = localStorage.getItem("token");
       if (!token) {
-        // Si el token no está presente, redirigir al cod_dis a la página de inicio de sesión
+        // Si el token no está presente, redirigir al usuario a la página de inicio de sesión
         window.location.href = "http://127.0.0.1:5500/frond/login.html";
         return; // Detener la ejecución del código
       }
   
       // Enviar los datos al servidor para realizar la búsqueda
-      const response = await fetch(
-        'http://localhost:3009/DDE/bonozona', // Cambia la URL según tu endpoint
-        {
-          method: "POST", // Usa POST si estás enviando datos
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            distrito,
-            gestion,
-            mes
-          })
-        }
-      );
+      const response = await fetch('http://localhost:3009/DDE/bonozona', {
+        method: "POST", // Usa POST si estás enviando datos
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(params)
+      });
   
       // Ocultar el spinner después de recibir la respuesta
       spinner.classList.remove("show");
   
       if (response.ok) {
         const data = await response.json();
-        //console.log(data)
-        mostrarDatosdelaUE(data);
+        mostrarDatosdelaUE(data, params.coddis);
+        // Mostrar el botón de imprimir
+        document.getElementById("imprimir").style.display = "block";
       } else {
         const errorData = await response.json();
-        console.error("Error al enviar la solicitud:", error);
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
-  
-        Toast.fire({
-          icon: "error",
-          title: 'U.E. no encontrada',
-        });
+        console.error("Error al enviar la solicitud:", errorData);
+        showErrorToast('U.E. no encontrada');
+        // Ocultar el botón de imprimir en caso de error
+        document.getElementById("imprimir").style.display = "none";
       }
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
-  
-      Toast.fire({
-        icon: "error",
-        title: 'Error al hacer la consulta',
-      });
+      showErrorToast('Error al hacer la consulta');
+      // Ocultar el botón de imprimir en caso de error
+      document.getElementById("imprimir").style.display = "none";
     }
-  });
-
-
+  };
+  
+  // Función para mostrar un toast de advertencia
+  const showWarningToast = (message) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+  
+    Toast.fire({
+      icon: "warning",
+      title: message,
+    });
+  };
+  
+  // Función para mostrar un toast de error
+  const showErrorToast = (message) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+  
+    Toast.fire({
+      icon: "error",
+      title: message,
+    });
+  };
+  
   // Función para mostrar los datos en la tabla HTML
-  const mostrarDatosdelaUE = (data) => {
-    // Obtener referencia al cuerpo de la tabla y vaciarlo
-    const tbody = document.getElementById('medida');
-    tbody.innerHTML = '';
+  const mostrarDatosdelaUE = (data, coddis) => {
+    // Obtener referencia a la tabla
+    const table = document.getElementById('myTable');
+    table.innerHTML = ''; // Limpiar el contenido anterior de la tabla
+  
+    // Crear el encabezado de la tabla
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="text-white">
+        ${coddis ? `
+          <th>RDA</th>
+          <th>MAESTRO_A</th>
+          <th>CARGO</th>
+          <th>SERVICIO_ITEM</th>
+        ` : `
+          <th>DISTRITO</th>
+          <th>UNIDAD EDUCATIVA</th>
+        `}
+      </tr>
+    `;
+    table.appendChild(thead);
+  
+    // Obtener referencia al cuerpo de la tabla
+    const tbody = document.createElement('tbody');
+    tbody.id = 'medida';
+    table.appendChild(tbody);
   
     // Iterar sobre los datos recibidos y crear filas dinámicamente
     data.data.forEach((row) => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `
+      tr.innerHTML = coddis ? `
+        <td>${row.RDA}</td>
+        <td>${row.MAESTRO_A}</td>
+        <td>${row.CARGO}</td>
+        <td>${row.SERVICIO_ITEM}</td>
+      ` : `
         <td>${row.DISTRITO}</td>
         <td>${row.UNIDAD_EDUCATIVA}</td>
       `;
       tbody.appendChild(tr);
     });
   };
+  
   
 
 
