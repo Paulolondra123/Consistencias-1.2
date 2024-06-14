@@ -22,6 +22,7 @@
     const routerproveedor = require('./src/routes/proveedor_router')
     const routercliente = require('./src/routes/cliente_routes')    
     const routerproducto = require('./src/routes/productos_routes')
+    //const routerpdf = require('./src/routes/pdf_routes')
 
 
     // Configurar express-session
@@ -92,6 +93,7 @@
     server.use('/La_holandesa',authMiddleware, routerproveedor )
     server.use('/La_holandesa',authMiddleware, routercliente )
     server.use('/La_holandesa',authMiddleware, routerproducto )
+    //server.use('/La_holandesa',authMiddleware, routerpdf )
 
 
 

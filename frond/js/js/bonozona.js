@@ -170,8 +170,7 @@ const obtenerToken = async () => {
 
 
 
-
-
+  let datosTabla = [];
 
 
   document.getElementById("formbuscar").addEventListener("submit", async function (event) {
@@ -240,6 +239,7 @@ const obtenerToken = async () => {
   
       if (response.ok) {
         const data = await response.json();
+        datosTabla = data.data; // Almacena los datos de la tabla
         mostrarDatosdelaUE(data, params.coddis);
         // Mostrar el botón de imprimir
         document.getElementById("imprimir").style.display = "block";
@@ -334,244 +334,57 @@ const obtenerToken = async () => {
     });
   };
   
-  
 
+  document.getElementById('imprimir').addEventListener('click', async function(event) {
+    event.preventDefault();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-/*   document.getElementById("formbuscar").addEventListener("submit", async function (event) {
-    event.preventDefault(); // Evitar que se recargue la página al enviar el formulario
-  
-    // Obtener los valores del formulario
-    //const gestion = document.getElementById("gestion").value;
-    const carnet = document.getElementById("carnet").value;
-    const spinner = document.getElementById("spinner");
-  
-    // Verificar si el campo de carnet está vacío
-    if (!carnet) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
-  
-      Toast.fire({
-        icon: "warning",
-        title: 'Por favor, ingrese el número de carnet',
-      });
-      return; // Detener la ejecución del código si el carnet está vacío
-    }
-  
-    // Determinar qué checkbox está seleccionado
-    const movimientopersonalChecked = document.getElementById("movimientopersonal").checked;
-    const añosprovinciaChecked = document.getElementById("añosprovincia").checked;
-    const prdChecked = document.getElementById("ap").checked;
-    const observadosChecked = document.getElementById("observados").checked;
-  
-  
-  
-    if (!movimientopersonalChecked && !añosprovinciaChecked && !prdChecked && !observadosChecked) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
-  
-      Toast.fire({
-        icon: "warning",
-        title: 'Por favor, seleccione una opción',
-      });
-      return; // Detener la ejecución del código si no se ha seleccionado ninguna opción
-    }
-  
-    //const queryType = movimientopersonalChecked ? 'first' : 'second';
-  
-    let queryType = '';
-  
-    if (movimientopersonalChecked) {
-      queryType = 'first';
-    }
-    if (añosprovinciaChecked) {
-      queryType = 'second';
-    }
-    if (prdChecked) {
-      queryType = 'tercer';
-    }
-    if (observadosChecked) {
-      queryType = 'cuarto';
-    }
-   
-  
-  
-  
-    //console.log("Tipo de dato:", typeof carn);
-  
-    try {
-      // Mostrar el spinner y ajustar la opacidad
-      spinner.classList.add("show");
-      spinner.style.opacity = "0.5"; // Ajusta la opacidad aquí
-  
-      // Hacer una solicitud HTTP al servidor para obtener el token
-      const token = localStorage.getItem("token");
-      if (!token) {
-        // Si el token no está presente, redirigir al cod_dis a la página de inicio de sesión
+    const token = localStorage.getItem("token");
+    if (!token) {
         window.location.href = "http://127.0.0.1:5500/frond/login.html";
-        return; // Detener la ejecución del código
-      }
-  
-      // Enviar los datos al servidor para realizar la búsqueda
-      const response = await fetch(
-        'http://localhost:3009/DDE/buscar', // Cambia la URL según tu endpoint
-        {
-          method: "POST", // Usa POST si estás enviando datos
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            carnet,
-            queryType
-          })
-        }
-      );
-  
-      // Ocultar el spinner después de recibir la respuesta
-      spinner.classList.remove("show");
-  
-      if (response.ok) {
-        const data = await response.json();
-        // Manejar la respuesta exitosa (por ejemplo, actualizar la tabla)
-        //console.log("Datos recibidos:", data);
-        // Mostrar los datos en un formulario
-        mostrarDatosEnFormulari(data, queryType);
-      } else {
-        const errorData = await response.json();
-        console.error("Error al enviar la solicitud:", error);
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
-  
-        Toast.fire({
-          icon: "error",
-          title: 'Carnet no encontrado',
-        });
-        limpiarTabla();
-        
-      }
-    } catch (error) {
-      console.error("Error al enviar la solicitud:", error);
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
-  
-      Toast.fire({
-        icon: "error",
-        title: 'Carnet no encontrado',
-      });
+        return;
     }
-  });
-  
-  
-  // Función para mostrar los datos en la tabla HTML
-  const mostrarDatosEnFormulari = (data, queryType) => {
-    // Obtener referencia a la tabla
+
+    // Obtener los datos de la tabla
     const table = document.getElementById('myTable');
-    table.innerHTML = ''; // Limpiar el contenido anterior de la tabla
-  
-    // Crear el encabezado de la tabla
-    const thead = document.createElement('thead');
-    thead.innerHTML = `
-      <tr class="text-white">
-      ${queryType === 'first' 
-        ? `<th>GESTION</th><th>MES</th><th>DISTRITO</th><th>SERVICIO</th><th>ITEM</th><th>HORAS</th>`
-        : queryType === 'second' 
-            ? `<th>GESTION</th><th>DISTRITO</th><th>MAESTRO_A</th><th>CARGO</th><th>SERVICIO</th><th>ITEM</th><th>HORAPR</th><th>CANTIDAD_MESES</th>`
-            : queryType === 'tercer'
-            ? `<th>COD_RDA</th><th>MAESTRO_A</th><th>NOMBRE2</th><th>NUM_DOC</th><th>FRONTERA</th><th>DESDE</th><th>HASTA</th><th>HORAS</th>`
-            : `<th>CARNET</th><th>PATERNO</th><th>MATERNO</th><th>NOMBRE1</th><th>NOMBRE2</th><th>MOTIVO</th>`
-            }
-      </tr>
-    `;
-  
-    table.appendChild(thead);
-  
-    // Obtener referencia al cuerpo de la tabla
-    const tbody = document.createElement('tbody');
-    tbody.id = 'medida';
-    table.appendChild(tbody);
-  
-    // Iterar sobre los datos recibidos y crear filas dinámicamente
-    data.data.forEach((row) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = queryType === 'first' 
-    ? `
-      <td>${row.gestion}</td>
-      <td>${row.mes}</td>
-      <td>${row.cod_dis}</td>
-      <td>${row.servicio}</td>
-      <td>${row.item}</td>
-      <td>${row.horas}</td>
-    `
-    : queryType === 'second' 
-      ? `
-        <td>${row.GESTION}</td>
-        <td>${row.DISTRITO}</td>
-        <td>${row.MAESTRO_A}</td>
-        <td>${row.CARGO}</td>
-        <td>${row.servicio}</td>
-        <td>${row.item}</td>
-        <td>${row.horapr}</td>
-        <td>${row.CANTIDAD_MESES}</td>
-      `
-      : queryType === 'tercer'
-      ? `
-        <td>${row.cod_rda}</td>
-        <td>${row.MAESTRO_A}</td>
-        <td>${row.nombre2}</td>
-        <td>${row.NUM_DOC}</td>
-        <td>${row.FRONTERA}</td>
-        <td>${row.DESDE}</td>
-        <td>${row.HASTA}</td>
-        <td>${row.HORAS}</td>
-      `
-      : `
-        <td>${row.carnet}</td>
-        <td>${row.PATERNO}</td>
-        <td>${row.MATERNO}</td>
-        <td>${row.nombre1}</td>
-        <td>${row.NOMBRE2}</td>
-        <td>${row.MOTIVO}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  };
-   */
+    const rows = table.getElementsByTagName('tr');
+    const datosTabla = [];
+
+    for (let i = 1; i < rows.length; i++) { // Empezar en 1 para saltar el encabezado
+        const cells = rows[i].getElementsByTagName('td');
+        const rowData = [];
+        for (let j = 0; j < cells.length; j++) {
+            rowData.push(cells[j].innerText);
+        }
+        datosTabla.push(rowData);
+    }
+
+    try {
+        const response = await fetch('http://localhost:3009/DDE/pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ datosTabla }) // Enviar datos de la tabla
+        });
+
+        if (!response.ok) {
+            throw new Error('Error en la solicitud');
+        }
+
+        const blob = await response.blob();
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'reporte.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error('Error:', error.message);
+        alert('Error al generar el PDF');
+    }
+});
