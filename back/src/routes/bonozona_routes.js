@@ -30,28 +30,37 @@ router.post('/pdf', (req, res) => {
     //const imagePath = path.join(__dirname, '../public/images/logo.png');
     //doc.image(imagePath, 50, 20, { width: 100 }) // Ajusta la ruta y las dimensiones según sea necesario
     //doc.fontSize(20)
-    doc.font('Helvetica-Bold').fontSize(10).text('REPORTE DE BONO ZONA', 30, 30, { align: 'center' })
-       .font('Helvetica-Bold').fontSize(10).text('CENTROS EDUCATIVOS', 30, 45, { align: 'center' });
+    doc.font('Helvetica-Bold').fontSize(10).text('REPORTE DE BONO ZONA', 30, 30)
+       .font('Helvetica-Bold').fontSize(10).text('CENTROS EDUCATIVOS', 30, 45)
+       .fontSize(5).text('ESTADO PLURINACIONAL DE', 30, 45)
+       .font('Helvetica-Bold').fontSize(20).text('BOLIVIA', 30, 45)
+       .font('Helvetica-Bold').fontSize(10).text('MINISTERIO DE EDUCACION', 30, 45)
+       .font('Helvetica-Bold').fontSize(10).text('DIRECCION DEPARTAMENTAL DE', 30, 45)
+       .font('Helvetica-Bold').fontSize(10).text('EDUCACION DE SANTA CRUZ', 30, 45)
 
     // Dibujar línea horizontal
-    doc.moveTo(50, 80)
-       .lineTo(550, 80)
+    doc.font('Helvetica-Bold')
+        .moveTo(25, 90)
+       .lineTo(762, 90)
+       .stroke();
+
+    doc.font('Helvetica-Bold')
+        .moveTo(25, 93)
+       .lineTo(762, 93)
        .stroke();
 
     doc.moveDown();
-    doc.fontSize(10)
-       .text('DISTRITO EDUCATIVO:', 50, 73)
-       .text('SIE:', 250, 73)
-       .text('CENTROS EDUCATIVOS', 400, 73)
-       .text('CANTIDAD', 550, 73);
+    doc.fontSize(8)
+       .text('DISTRITO EDUCATIVO:', 160, 75)
+       .text('CENTROS EDUCATIVOS', 500, 75)
 
     // Añadir tabla de datos
-    let yPosition = 180;
+    let yPosition = 105;
     datosTabla.forEach(row => {
-        doc.text(row[0], 50, yPosition)
-           .text(row[1], 250, yPosition)
-           .text(row[2], 400, yPosition)
-           .text(row[3], 550, yPosition);
+        doc.text(row[0], 120, yPosition)
+           .text(row[1], 480, yPosition)
+           //.text(row[2], 500, yPosition)
+           //.text(row[3], 650, yPosition);
         yPosition += 20;
     });
 
