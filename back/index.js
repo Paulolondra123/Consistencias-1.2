@@ -7,6 +7,7 @@
     const cors = require('cors');
     const bodyParser = require('body-parser');
     const jwt = require('jsonwebtoken');
+    const path = require('path');
 
     dotenv.config()
 
@@ -84,6 +85,8 @@
         return res.status(401).json({ message: "Token inválido" });
         } 
     }; 
+    server.use(express.static(path.join(__dirname, '../frond/img')));
+
 
     server.use('/DDE', router_login_logout_verify )
     server.use('/DDE',authMiddleware, routerusuario )
